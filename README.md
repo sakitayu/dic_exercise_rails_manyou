@@ -1,4 +1,5 @@
-|  task  |
-| ---- |
-|  name : string  |
-|  detail : integer |
+taskテーブル
+|  カラム  |  データ型  |
+| ---- | ---- |
+|  name  |  string  |
+|  detail  |  string  |

@@ -19,6 +19,10 @@
     <%= form.label :detail %>
     <%= form.text_field :detail %>
   </div>
+  <div class="task_expired_at">
+    <%= form.label :expired_at %>
+    <%= form.datetime_select :expired_at, {} %>
+  </div>
   <%= form.submit %>
 <% end %>
 

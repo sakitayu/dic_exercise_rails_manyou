@@ -29,4 +29,6 @@
 .DS_Store
 .bash_prifile
 .bashrc
+.bundle
+.vscode
 .env

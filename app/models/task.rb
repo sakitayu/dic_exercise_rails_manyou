@@ -5,5 +5,4 @@ class Task < ApplicationRecord
   validates :detail,
     presence: true,
     length: { maximum: 80 }
-  #default_scope -> { order(created_at: :desc) }
 end

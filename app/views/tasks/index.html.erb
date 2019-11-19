@@ -15,6 +15,7 @@
     <td><%= task.name %></td>
     <td><%= task.detail %></td>
     <td><%= task.expired_at.try(:strftime,"%Y/%m/%d %H時") %></td>
+    <td><%= task.status %></td>
     <td><%= link_to "詳細画面", task_path(task.id), id: "show_#{task.id}" %></td>
     <td><%= link_to "編集画面", edit_task_path(task.id), id: "edit_#{task.id}" %></td>
     <td>

@@ -8,6 +8,7 @@ ja:
         name: タスク名
         detail: タスク詳細
         expired_at: 終了期限
+        status: ステータス
       user:
         title: タイトル
         name: 名前

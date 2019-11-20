@@ -10,11 +10,11 @@ class TasksController < ApplicationController
         @tasks = @tasks.order(expired_at: :desc)
       end
     elsif params[:name].blank?
-      @tasks = Task.where("status LIKE ?", "%#{ params[:status] }%")
+      @tasks = Task.status_search
     elsif params[:status].blank?
-      @tasks = Task.where("name LIKE ?", "%#{ params[:name] }%")
+      @tasks = Task.name_search
     else
-      @tasks = Task.where("status LIKE ?", "%#{ params[:status] }%").where("name LIKE ?", "%#{ params[:name] }%")
+      @tasks = Task.name_and_status_search
     end
     
   end

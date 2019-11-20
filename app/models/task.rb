@@ -7,7 +7,7 @@ class Task < ApplicationRecord
     length: { maximum: 80 }
   #default_scope -> { order(created_at: :desc) }
   #scope :sort_expired, -> { order(expired_at: :desc) }
-  scope :name_search, -> { where("name LIKE ?", "%#{ params[:name] }%") }
-  scope :status_search, -> { where("status LIKE ?", "%#{ params[:status] }%") }
-  scope :name_and_status_search, -> { where("status LIKE ?", "%#{ params[:status] }%").where("name LIKE ?", "%#{ params[:name] }%") }
+  scope :name_search, -> (params_name) { where("name LIKE ?", "%#{params_name}%") }
+  scope :status_search, -> (params_status) { where("status LIKE ?", "%#{params_status}%") }
+  scope :name_and_status_search, -> (params_name, params_status) { where("status LIKE ?", "%#{params_status}%").where("name LIKE ?", "%#{params_name}%") }
 end

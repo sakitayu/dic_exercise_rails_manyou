@@ -10,11 +10,11 @@ class TasksController < ApplicationController
         @tasks = @tasks.order(expired_at: :desc)
       end
     elsif params[:name].blank?
-      @tasks = Task.status_search
+      @tasks = Task.status_search(params[:status])
     elsif params[:status].blank?
-      @tasks = Task.name_search
+      @tasks = Task.name_search(params[:name])
     else
-      @tasks = Task.name_and_status_search
+      @tasks = Task.name_and_status_search(params[:name], params[:status])
     end
     
   end

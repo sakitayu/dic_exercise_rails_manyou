@@ -25,6 +25,10 @@
     <%= form.label :expired_at %>
     <%= form.datetime_select :expired_at, use_month_numbers: true, start_year: Time.now.year, date_separator: '/' %>
   </div>
+  <div class="task_priority">
+    <%= form.label :priority %>
+    <%= form.select :priority, ['1', '2', '3'] %>
+  </div>
   <%= form.submit %>
 <% end %>
 

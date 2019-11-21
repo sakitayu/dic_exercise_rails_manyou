@@ -27,7 +27,7 @@
   </div>
   <div class="task_priority">
     <%= form.label :priority %>
-    <%= form.select :priority, ['1', '2', '3'] %>
+    <%= form.select :priority, Task.priorities.keys.to_a %>
   </div>
   <%= form.submit %>
 <% end %>

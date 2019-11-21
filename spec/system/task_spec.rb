@@ -34,23 +34,21 @@ RSpec.describe "タスク管理機能", type: :system do
         select '2019', from: 'task_expired_at_1i'
         select '11', from: 'task_expired_at_2i'
         select '20', from: 'task_expired_at_3i'
-        select '11', from: 'task_expired_at_4i'
-        select '15', from: 'task_expired_at_5i'
-        task = FactoryBot.create(:task, name: 'タスク名テスト', detail: 'タスク名詳細', expired_at: '2019-11-20 11:15:00')
+        task = FactoryBot.create(:task, name: 'タスク名テスト', detail: 'タスク名詳細', expired_at: '2019-11-20')
         click_on '登録する'
         expect(page).to have_content 'タスク名テスト'
         expect(page).to have_content 'タスク名詳細'
-        expect(page).to have_content '2019-11-20 11:15:00'
+        expect(page).to have_content '2019-11-20'
       end
     end
   end
 
   describe "タスク詳細のテスト" do
-    context '任意のタスク詳細画面に遷移した場合' do
+    context '任意のタスク詳細に遷移した場合' do
       it '該当タスクの内容が表示されたページに遷移すること' do
         visit tasks_path
-        all('tbody td')[5].click_on '詳細画面'
-        expect(page).to have_content 'タスク詳細画面'
+        all('tbody td')[5].click_on '詳細'
+        expect(page).to have_content 'タスク詳細'
         expect(page).to have_content '4個目のテスト'
         expect(page).to have_content 'タスク名詳細4'
       end
@@ -58,25 +56,25 @@ RSpec.describe "タスク管理機能", type: :system do
   end
 
   describe "タスクが作成日時の降順に並んでいるかのテスト" do
-    context 'index画面に遷移した場合' do
+    context 'indexに遷移した場合' do
       it '該当タスクの内容が作成日時の降順に並んでいること' do
         visit tasks_path
-        all('tbody td')[5].click_on '詳細画面'
+        all('tbody td')[5].click_on '詳細'
         expect(page).to have_content '4個目のテスト'
         expect(page).to have_content 'タスク名詳細4'
 
         visit tasks_path
-        all('tbody td')[13].click_on '詳細画面'
+        all('tbody td')[13].click_on '詳細'
         expect(page).to have_content 'タスク名テスト3'
         expect(page).to have_content 'タスク名詳細3'
 
         visit tasks_path
-        all('tbody td')[21].click_on '詳細画面'
+        all('tbody td')[21].click_on '詳細'
         expect(page).to have_content 'タスク名テスト2'
         expect(page).to have_content 'タスク名詳細2'
 
         visit tasks_path
-        all('tbody td')[29].click_on '詳細画面'
+        all('tbody td')[29].click_on '詳細'
         expect(page).to have_content 'タスク名テスト1'
         expect(page).to have_content 'タスク名詳細1'
       end
@@ -97,11 +95,11 @@ RSpec.describe "タスク管理機能", type: :system do
     end
   end
 
-  describe "タスク編集画面でステータスを変更できるかのテスト" do
+  describe "タスク編集でステータスを変更できるかのテスト" do
     context 'ステータスを選択して、「更新する」ボタンを押した場合' do
       it 'ステータスが更新されているいること' do
         visit tasks_path
-        all('tbody td')[6].click_on '編集画面'
+        all('tbody td')[6].click_on '編集'
         select '完了', from: 'task_status'
         #task = FactoryBot.create(:task, name: 'タスク名テスト', detail: 'タスク名詳細', expired_at: '2019-11-20 11:15:00')
         click_on '更新する'
@@ -112,7 +110,7 @@ RSpec.describe "タスク管理機能", type: :system do
     end
   end
 
-  describe "インデックス画面の検索ボタンで検索結果が反映されているかのテスト" do
+  describe "インデックスの検索ボタンで検索結果が反映されているかのテスト" do
     context 'タイトルを記入して、「検索」ボタンを押した場合' do
       it '検索結果が正しく表示されているいること' do
         visit tasks_path
@@ -125,7 +123,7 @@ RSpec.describe "タスク管理機能", type: :system do
     end
   end
 
-  describe "インデックス画面の検索ボタンで検索結果が反映されているかのテスト" do
+  describe "インデックスの検索ボタンで検索結果が反映されているかのテスト" do
     context 'ステータスを完了にして、「検索」ボタンを押した場合' do
       it '検索結果が正しく表示されているいること' do
         visit tasks_path
@@ -137,7 +135,7 @@ RSpec.describe "タスク管理機能", type: :system do
     end
   end
 
-  describe "インデックス画面の検索ボタンで検索結果が反映されているかのテスト" do
+  describe "インデックスの検索ボタンで検索結果が反映されているかのテスト" do
     context 'ステータスを完了にして、「検索」ボタンを押した場合' do
       it '検索結果が正しく表示されているいること' do
         visit tasks_path

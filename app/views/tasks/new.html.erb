@@ -1,35 +1,50 @@
-<h2>タスクを作成する</h2>
+<header></header>
 
-<%= form_with(model: @task, local: true) do |form| %>
-  <% if @task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= @task.errors.count %>件のエラーがあります。</h2>
-      <ul>
-
-      <% @task.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<main>
+  <div class="main_box">
+    <div class="title_box">
+      <h1>タスクを作成する</h1>
     </div>
-  <% end %>
 
-  <div class="task_name">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+    <div class="contents_box">
+    <%= form_with(model: @task, local: true) do |form| %>
+      <% if @task.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= @task.errors.count %>件のエラーがあります。</h2>
+          <ul>
+    
+          <% @task.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+          
+      <div class="task_name">
+        <%= form.label :name %>
+        <%= form.text_field :name %>
+      </div>
+      <div class="task_detail">
+        <%= form.label :detail %>
+        <%= form.text_field :detail, size: "90" %>
+      </div>
+      <div class="task_expired_at">
+        <%= form.label :expired_at %>
+        <%= form.date_select :expired_at, use_month_numbers: true, start_year: Time.now.year, date_separator: '/' %>
+      </div>
+      <div class="task_priority">
+        <%= form.label :priority %>
+        <%= form.select :priority, Task.priorities.keys.to_a %>
+      </div>
+      <%= form.submit %>
+    <% end %>
+      
+      <br>
+      <br>
+      <%= link_to "タスク一覧画面にもどる", tasks_path %>
+          
+    </div>
   </div>
-  <div class="task_detail">
-    <%= form.label :detail %>
-    <%= form.text_field :detail %>
-  </div>
-  <div class="task_expired_at">
-    <%= form.label :expired_at %>
-    <%= form.datetime_select :expired_at, use_month_numbers: true, start_year: Time.now.year, date_separator: '/' %>
-  </div>
-  <div class="task_priority">
-    <%= form.label :priority %>
-    <%= form.select :priority, Task.priorities.keys.to_a %>
-  </div>
-  <%= form.submit %>
-<% end %>
+</main>
 
-<%= link_to "タスク一覧画面にもどる", tasks_path %>
+<footer></footer>

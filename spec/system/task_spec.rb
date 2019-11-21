@@ -61,22 +61,22 @@ RSpec.describe "タスク管理機能", type: :system do
     context 'index画面に遷移した場合' do
       it '該当タスクの内容が作成日時の降順に並んでいること' do
         visit tasks_path
-        all('tbody td')[6].click_on '詳細画面'
+        all('tbody td')[5].click_on '詳細画面'
         expect(page).to have_content '4個目のテスト'
         expect(page).to have_content 'タスク名詳細4'
 
         visit tasks_path
-        all('tbody td')[14].click_on '詳細画面'
+        all('tbody td')[13].click_on '詳細画面'
         expect(page).to have_content 'タスク名テスト3'
         expect(page).to have_content 'タスク名詳細3'
 
         visit tasks_path
-        all('tbody td')[22].click_on '詳細画面'
+        all('tbody td')[21].click_on '詳細画面'
         expect(page).to have_content 'タスク名テスト2'
         expect(page).to have_content 'タスク名詳細2'
 
         visit tasks_path
-        all('tbody td')[30].click_on '詳細画面'
+        all('tbody td')[29].click_on '詳細画面'
         expect(page).to have_content 'タスク名テスト1'
         expect(page).to have_content 'タスク名詳細1'
       end

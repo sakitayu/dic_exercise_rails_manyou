@@ -49,7 +49,7 @@ RSpec.describe "タスク管理機能", type: :system do
     context '任意のタスク詳細画面に遷移した場合' do
       it '該当タスクの内容が表示されたページに遷移すること' do
         visit tasks_path
-        all('tbody td')[4].click_on '詳細画面'
+        all('tbody td')[5].click_on '詳細画面'
         expect(page).to have_content 'タスク詳細画面'
         expect(page).to have_content '4個目のテスト'
         expect(page).to have_content 'タスク名詳細4'
@@ -61,22 +61,22 @@ RSpec.describe "タスク管理機能", type: :system do
     context 'index画面に遷移した場合' do
       it '該当タスクの内容が作成日時の降順に並んでいること' do
         visit tasks_path
-        all('tbody td')[4].click_on '詳細画面'
+        all('tbody td')[6].click_on '詳細画面'
         expect(page).to have_content '4個目のテスト'
         expect(page).to have_content 'タスク名詳細4'
 
         visit tasks_path
-        all('tbody td')[11].click_on '詳細画面'
+        all('tbody td')[14].click_on '詳細画面'
         expect(page).to have_content 'タスク名テスト3'
         expect(page).to have_content 'タスク名詳細3'
 
         visit tasks_path
-        all('tbody td')[18].click_on '詳細画面'
+        all('tbody td')[22].click_on '詳細画面'
         expect(page).to have_content 'タスク名テスト2'
         expect(page).to have_content 'タスク名詳細2'
 
         visit tasks_path
-        all('tbody td')[25].click_on '詳細画面'
+        all('tbody td')[30].click_on '詳細画面'
         expect(page).to have_content 'タスク名テスト1'
         expect(page).to have_content 'タスク名詳細1'
       end
@@ -90,9 +90,9 @@ RSpec.describe "タスク管理機能", type: :system do
         all('tbody th')[2].click_on '終了期限'
         sleep 1
         expect(all('tbody td')[0]).to have_content 'タスク名テスト3'
-        expect(all('tbody td')[7]).to have_content 'タスク名テスト2'
-        expect(all('tbody td')[14]).to have_content 'タスク名テスト1'
-        expect(all('tbody td')[21]).to have_content '4個目のテスト'
+        expect(all('tbody td')[8]).to have_content 'タスク名テスト2'
+        expect(all('tbody td')[16]).to have_content 'タスク名テスト1'
+        expect(all('tbody td')[24]).to have_content '4個目のテスト'
       end
     end
   end
@@ -101,7 +101,7 @@ RSpec.describe "タスク管理機能", type: :system do
     context 'ステータスを選択して、「更新する」ボタンを押した場合' do
       it 'ステータスが更新されているいること' do
         visit tasks_path
-        all('tbody td')[5].click_on '編集画面'
+        all('tbody td')[6].click_on '編集画面'
         select '完了', from: 'task_status'
         #task = FactoryBot.create(:task, name: 'タスク名テスト', detail: 'タスク名詳細', expired_at: '2019-11-20 11:15:00')
         click_on '更新する'
@@ -119,8 +119,8 @@ RSpec.describe "タスク管理機能", type: :system do
         fill_in 'タイトル', with: 'タスク'
         click_on '検索'
         expect(all('tbody td')[0]).to have_content 'タスク名テスト1'
-        expect(all('tbody td')[7]).to have_content 'タスク名テスト2'
-        expect(all('tbody td')[14]).to have_content 'タスク名テスト3'
+        expect(all('tbody td')[8]).to have_content 'タスク名テスト2'
+        expect(all('tbody td')[16]).to have_content 'タスク名テスト3'
       end
     end
   end
@@ -132,7 +132,7 @@ RSpec.describe "タスク管理機能", type: :system do
         select '完了', from: 'status'
         click_on '検索'
         expect(all('tbody td')[0]).to have_content 'タスク名テスト3'
-        expect(all('tbody td')[7]).to have_content '4個目のテスト'
+        expect(all('tbody td')[8]).to have_content '4個目のテスト'
       end
     end
   end

@@ -1,9 +1,10 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  PER = 5
 
   def index
     if params[:name].blank? && params[:status].blank?
-      @tasks = Task.all
+      @tasks = Task.page(params[:page]).per(PER)
       if params[:sort_expired].blank? && params[:sort_priority].blank?
         @tasks = @tasks.order(created_at: :desc)
       elsif params[:sort_expired].blank?

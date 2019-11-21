@@ -38,7 +38,7 @@ RSpec.describe "タスク管理機能", type: :system do
         click_on '登録する'
         expect(page).to have_content 'タスク名テスト'
         expect(page).to have_content 'タスク名詳細'
-        expect(page).to have_content '2019-11-20'
+        expect(page).to have_content '2019/11/20'
       end
     end
   end
@@ -101,7 +101,6 @@ RSpec.describe "タスク管理機能", type: :system do
         visit tasks_path
         all('tbody td')[6].click_on '編集'
         select '完了', from: 'task_status'
-        #task = FactoryBot.create(:task, name: 'タスク名テスト', detail: 'タスク名詳細', expired_at: '2019-11-20 11:15:00')
         click_on '更新する'
         expect(page).to have_content '完了'
         visit tasks_path
@@ -110,7 +109,7 @@ RSpec.describe "タスク管理機能", type: :system do
     end
   end
 
-  describe "インデックスの検索ボタンで検索結果が反映されているかのテスト" do
+  describe "インデックスの検索ボタンで検索結果が反映されているかのテスト1" do
     context 'タイトルを記入して、「検索」ボタンを押した場合' do
       it '検索結果が正しく表示されているいること' do
         visit tasks_path
@@ -123,7 +122,7 @@ RSpec.describe "タスク管理機能", type: :system do
     end
   end
 
-  describe "インデックスの検索ボタンで検索結果が反映されているかのテスト" do
+  describe "インデックスの検索ボタンで検索結果が反映されているかのテスト2" do
     context 'ステータスを完了にして、「検索」ボタンを押した場合' do
       it '検索結果が正しく表示されているいること' do
         visit tasks_path
@@ -135,7 +134,7 @@ RSpec.describe "タスク管理機能", type: :system do
     end
   end
 
-  describe "インデックスの検索ボタンで検索結果が反映されているかのテスト" do
+  describe "インデックスの検索ボタンで検索結果が反映されているかのテスト3" do
     context 'ステータスを完了にして、「検索」ボタンを押した場合' do
       it '検索結果が正しく表示されているいること' do
         visit tasks_path

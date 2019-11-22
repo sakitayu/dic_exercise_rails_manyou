@@ -14,10 +14,13 @@ class TasksController < ApplicationController
       end
     elsif params[:name].blank?
       @tasks = Task.page(params[:page]).per(PER).status_search(params[:status])
+      flash[:notice] = "「#{params[:status]}」の検索結果"
     elsif params[:status].blank?
       @tasks = Task.page(params[:page]).per(PER).name_search(params[:name])
+      flash[:notice] = "「#{params[:name]}」の検索結果"
     else
       @tasks = Task.page(params[:page]).per(PER).name_and_status_search(params[:name], params[:status])
+      flash[:notice] = "「#{params[:status]}」と「#{params[:name]}」の検索結果"
     end
     
   end

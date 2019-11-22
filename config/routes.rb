@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   get 'sessions/new'
   root 'tasks#index'
-  resources :tasks
+  #resources :tasks
   resources :sessions, only: [:new, :create, :destroy]
-  resources :users
+  resources :users do
+    member do
+      resources :tasks
+    end
+  end
+
+
 end

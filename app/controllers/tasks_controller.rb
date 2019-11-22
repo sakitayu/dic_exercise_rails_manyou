@@ -3,8 +3,9 @@ class TasksController < ApplicationController
   PER = 10
 
   def index
+    @tasks = Task.where(user_id: current_user.id)
     if params[:name].blank? && params[:status].blank?
-      @tasks = Task.page(params[:page]).per(PER)
+      @tasks = @tasks.page(params[:page]).per(PER)
       if params[:sort_expired].blank? && params[:sort_priority].blank?
         @tasks = @tasks.order(created_at: :desc)
       elsif params[:sort_expired].blank?
@@ -31,6 +32,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.create(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to task_path(@task.id), notice: "タスクを作成しました！"
     else

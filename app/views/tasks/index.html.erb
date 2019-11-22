@@ -35,8 +35,8 @@
       
       <% @tasks.each do |task| %>
         <tr class="tasks_tr">
-          <td><%= task.name %></td>
-          <td><%= task.detail.slice(0, 13) %></td>
+          <td><%= task.name.slice(0, 12) %></td>
+          <td><%= task.detail.slice(0, 14) %></td>
           <td><%= task.expired_at.try(:strftime,"%Y/%m/%d") %></td>
           <td><%= task.status %></td>
           <td><%= task.priority %></td>

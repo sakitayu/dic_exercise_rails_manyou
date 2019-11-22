@@ -10,6 +10,113 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require bootstrap/dist/css/bootstrap.min
  *= require_tree .
  *= require_self
  */
+
+
+body{
+  margin:0;
+  padding:0;
+  background-color: #659CCA;
+}
+
+.main_box {
+  width: 800px;
+  margin:110px auto;
+}
+
+.title_box {
+  background-color: #EFF0DE;
+  height: 38px;
+  margin-bottom:20px;
+  text-align:center;
+  border-radius: 4px;
+}
+
+.title_box h1{
+  margin:0;
+  padding:0;
+  font-size: 24px;
+  float:left;
+  margin-top:5px;
+  margin-left:20px;
+}
+
+.notice_flash{
+  float:left;
+  font-size: 15px;
+  font-weight:bold;
+  color: #59A28A;
+  padding:8px 0 0 15px;
+}
+
+.task_search {
+  float:right;
+  margin-top:5px;
+  margin-right:20px;
+}
+
+.contents_box {
+  background-color: #EFF0DE;
+  border-radius: 4px;
+  height: auto;
+  padding:20px 20px 10px 20px;
+}
+
+.contents_box th{
+  padding-bottom:10px;
+  padding-left:3px;
+}
+
+.contents_box td{
+  padding-left:3px;
+}
+
+
+.tasks_tr {
+  border-top: 1px solid #8FD1DF;
+}
+
+.tasks_tr:hover{
+  background-color: #D2E7DF;
+
+}
+
+.task_name_th {
+  width:100px;
+}
+
+.task_detail_th {
+  width:220px;
+}
+
+.task_expired_th {
+  width:100px;
+}
+
+.task_status_th {
+  width:100px;
+}
+
+.task_priority_th {
+  width:100px;
+}
+
+.show_content {
+  margin: 0 0 10px 4px;
+}
+
+.show_contents_title {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.create_new_task {
+  margin-left:3px;
+}
+
+.paginate_box {
+  margin-left:3px;
+}

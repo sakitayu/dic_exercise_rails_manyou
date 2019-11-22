@@ -1,3 +1,55 @@
-<h2>タスクを編集する</h2>
+<header></header>
 
-<%= render 'form' %>
+<main>
+  <div class="main_box">
+    <div class="title_box">
+    <h1>タスクを編集する</h1>
+    </div>
+
+    <div class="contents_box">
+
+      <%= form_with(model: @task, local: true) do |form| %>
+        <% if @task.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= @task.errors.count %>件のエラーがあります。</h2>
+            <ul>
+      
+            <% @task.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+            
+        <div class="task_name">
+          <%= form.label :name %>
+          <%= form.text_field :name %>
+        </div>
+        <div class="task_detail">
+          <%= form.label :detail %>
+          <%= form.text_field :detail %>
+        </div>
+        <div class="task_expired_at">
+          <%= form.label :expired_at %>
+          <%= form.date_select :expired_at, {} %>
+        </div>
+        <div class="task_status">
+          <%= form.label :status %>
+          <%= form.select :status, ['未着手', '着手中', '完了'], {} %>
+        </div>
+        <div class="task_priority">
+          <%= form.label :priority %>
+          <%= form.select :priority, Task.priorities.keys.to_a %>
+        </div>
+        <%= form.submit %>
+        <br>
+        <br>
+      <% end %>
+            
+      <%= link_to "タスク一覧画面にもどる", tasks_path %>
+            
+    </div>
+  </div>
+</main>
+
+<footer></footer>

@@ -1,5 +1,25 @@
-<h1>タスク詳細画面</h1>
-<p>タスク名: <%= @task.name %></p>
-<p>タスク詳細: <%= @task.detail %></p>
+<header></header>
 
-<%= link_to '一覧画面に戻る', tasks_path %>
+<main>
+  <div class="main_box">
+    <div class="title_box">
+      <h1>タスク詳細</h1>
+    </div>
+
+    <div class="contents_box">
+      <div class="show_content"><span class="show_contents_title">タスク名: </span><%= @task.name %></div>
+      <div class="show_content"><span class="show_contents_title">タスク詳細: </span><%= @task.detail %></div>
+      <div class="show_content"><span class="show_contents_title">終了期限: </span><%= @task.expired_at.try(:strftime,"%Y/%m/%d") %></div>
+      <div class="show_content"><span class="show_contents_title">ステータス: </span><%= @task.status %></div>
+      <div class="show_content"><span class="show_contents_title">優先順位: </span><%= @task.priority %></div>
+
+
+      <%= link_to '一覧画面に戻る', tasks_path %>
+      <br>
+      <br>
+    </div>
+  </div>
+
+</main>
+
+<footer></footer>

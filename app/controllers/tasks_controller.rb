@@ -45,6 +45,8 @@ class TasksController < ApplicationController
   end
 
   def show
+    #binding.pry
+    #unless params[:id] == "#{current_user.id}"
   end
 
   def edit
@@ -66,7 +68,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :detail, :expired_at, :status, :search, :priority)
+    params.require(:task).permit(:name, :detail, :expired_at, :status, :search, :priority, :user_id)
   end
 
   def set_task

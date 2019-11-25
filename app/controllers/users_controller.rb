@@ -15,12 +15,9 @@ class UsersController < ApplicationController
 
   def show
     if params[:id] == "#{current_user.id}"
-    #binding.pry
       @user = User.find(params[:id])
     else
-      #render 'show'
       redirect_to user_path(current_user.id)
-      #binding.pry
     end
   end
 

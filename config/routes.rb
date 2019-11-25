@@ -3,11 +3,9 @@ Rails.application.routes.draw do
   root 'tasks#index'
   #resources :tasks
   resources :sessions, only: [:new, :create, :destroy]
-  resources :users do
-    member do
-      resources :tasks
-    end
-  end
+  resources :users
+  resources :tasks
+  
 
 
 end

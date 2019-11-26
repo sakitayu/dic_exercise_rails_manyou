@@ -52,14 +52,14 @@ class TasksController < ApplicationController
   end
 
   def show
-    unless logged_in?
-      redirect_to sessions_new_path
+    unless logged_in? && @task.user_id == current_user.id
+      redirect_to tasks_path
     end
   end
 
   def edit
-    unless logged_in?
-      redirect_to sessions_new_path
+    unless logged_in? && @task.user_id == current_user.id
+      redirect_to tasks_path
     end
   end
 

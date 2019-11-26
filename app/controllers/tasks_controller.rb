@@ -16,12 +16,15 @@ class TasksController < ApplicationController
         end
       elsif params[:name].blank?
         @tasks = Task.page(params[:page]).per(PER).status_search(params[:status])
+        @tasks = @tasks.where(user_id: current_user.id)
         flash[:notice] = "「#{params[:status]}」の検索結果"
       elsif params[:status].blank?
         @tasks = Task.page(params[:page]).per(PER).name_search(params[:name])
+        @tasks = @tasks.where(user_id: current_user.id)
         flash[:notice] = "「#{params[:name].slice(0, 6)}」の検索結果"
       else
         @tasks = Task.page(params[:page]).per(PER).name_and_status_search(params[:name], params[:status])
+        @tasks = @tasks.where(user_id: current_user.id)
         flash[:notice] = "「#{params[:status]}」と「#{params[:name].slice(0, 6)}」の検索結果"
       end
     else

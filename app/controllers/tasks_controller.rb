@@ -34,7 +34,11 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = Task.new
+    if logged_in?
+      @task = Task.new
+    else
+      redirect_to sessions_new_path
+    end
   end
 
   def create
@@ -48,11 +52,15 @@ class TasksController < ApplicationController
   end
 
   def show
-    #binding.pry
-    #unless params[:id] == "#{current_user.id}"
+    unless logged_in?
+      redirect_to sessions_new_path
+    end
   end
 
   def edit
+    unless logged_in?
+      redirect_to sessions_new_path
+    end
   end
 
   def update

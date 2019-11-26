@@ -3,7 +3,6 @@ class UsersController < ApplicationController
     if logged_in?
       redirect_to user_path(current_user.id)
     else
-      binding.pry
       @user = User.new
     end
   end

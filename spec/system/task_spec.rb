@@ -2,14 +2,21 @@ require 'rails_helper'
 
 RSpec.describe "タスク管理機能", type: :system do
   before do
-    task1 = FactoryBot.create(:task, name: 'タスク名テスト1', detail: 'タスク名詳細1', expired_at: '2019-11-22 12:27:00', status: '未着手')
-    task2 = FactoryBot.create(:task, name: 'タスク名テスト2', detail: 'タスク名詳細2', expired_at: '2019-11-23 12:27:00', status: '着手中')
-    task3 = FactoryBot.create(:task, name: 'タスク名テスト3', detail: 'タスク名詳細3', expired_at: '2019-11-24 12:27:00', status: '完了')
-    task4 = FactoryBot.create(:task, name: '4個目のテスト', detail: 'タスク名詳細4', expired_at: '2019-11-21 12:27:00', status: '完了')
+    user1 = FactoryBot.create(:user, name: "ユーザー1", email: "user1@example.com", password: "password")
+    task1 = FactoryBot.create(:task, name: 'タスク名テスト1', detail: 'タスク名詳細1', expired_at: '2019-11-22 12:27:00', status: '未着手', user_id: 1)
+    task2 = FactoryBot.create(:task, name: 'タスク名テスト2', detail: 'タスク名詳細2', expired_at: '2019-11-23 12:27:00', status: '着手中', user_id: 1)
+    task3 = FactoryBot.create(:task, name: 'タスク名テスト3', detail: 'タスク名詳細3', expired_at: '2019-11-24 12:27:00', status: '完了', user_id: 1)
+    task4 = FactoryBot.create(:task, name: '4個目のテスト', detail: 'タスク名詳細4', expired_at: '2019-11-21 12:27:00', status: '完了', user_id: 1)
+
+    visit new_session_path
+    fill_in "Eメール", with: "user1@example.com"
+    fill_in "パスワード", with: "password"
+    click_button "ログイン"
   end
 
   describe 'タスク一覧のテスト' do
     context 'タスクを作成した場合' do
+
       it '作成済みのタスクが表示されること' do
         
         visit tasks_path
@@ -34,7 +41,8 @@ RSpec.describe "タスク管理機能", type: :system do
         select '2019', from: 'task_expired_at_1i'
         select '11', from: 'task_expired_at_2i'
         select '20', from: 'task_expired_at_3i'
-        task = FactoryBot.create(:task, name: 'タスク名テスト', detail: 'タスク名詳細', expired_at: '2019-11-20')
+        user = FactoryBot.create(:user, name: "ユーザー", email: "user@example.com", password: "password")
+        task = FactoryBot.create(:task, name: 'タスク名テスト', detail: 'タスク名詳細', expired_at: '2019-11-20', user_id: 1)
         click_on '登録する'
         expect(page).to have_content 'タスク名テスト'
         expect(page).to have_content 'タスク名詳細'

@@ -1,24 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "タスク管理機能", type: :system do
-  # before do
-    
-  #   user = FactoryBot.create(:user, name: "ユーザー2", email: "user2@example.com", password: "password")
-  #   task1 = FactoryBot.create(:task, name: 'タスク名テスト1', detail: 'タスク名詳細1', expired_at: '2019-11-22 12:27:00', status: '未着手', user: user)
-  #   task2 = FactoryBot.create(:task, name: 'タスク名テスト2', detail: 'タスク名詳細2', expired_at: '2019-11-23 12:27:00', status: '着手中', user: user )
-  #   task3 = FactoryBot.create(:task, name: 'タスク名テスト3', detail: 'タスク名詳細3', expired_at: '2019-11-24 12:27:00', status: '完了', user: user )
-  #   task4 = FactoryBot.create(:task, name: '4個目のテスト', detail: 'タスク名詳細4', expired_at: '2019-11-21 12:27:00', status: '完了', user: user )
-
-  #   visit new_session_path
-  #   fill_in "Eメール", with: "user2@example.com"
-  #   fill_in "パスワード", with: "password"
-  #   click_button "ログイン"
-    
-  # end
 
   describe 'タスク一覧のテスト' do
     before do
-    
       user = FactoryBot.create(:user, name: "ユーザー2", email: "user2@example.com", password: "password")
       task1 = FactoryBot.create(:task, name: 'タスク名テスト1', detail: 'タスク名詳細1', expired_at: '2019-11-22 12:27:00', status: '未着手', user: user)
       task2 = FactoryBot.create(:task, name: 'タスク名テスト2', detail: 'タスク名詳細2', expired_at: '2019-11-23 12:27:00', status: '着手中', user: user )
@@ -29,7 +14,6 @@ RSpec.describe "タスク管理機能", type: :system do
       fill_in "Eメール", with: "user2@example.com"
       fill_in "パスワード", with: "password"
       click_button "ログイン"
-      
     end
 
     context 'タスクを作成した場合' do
@@ -49,10 +33,7 @@ RSpec.describe "タスク管理機能", type: :system do
   describe "タスク作成のテスト" do
     before do
       user = FactoryBot.create(:user, name: "ユーザー2", email: "user2@example.com", password: "password")
-      task1 = FactoryBot.create(:task, name: 'タスク名テスト1', detail: 'タスク名詳細1', expired_at: '2019-11-22 12:27:00', status: '未着手', user: user)
-      task2 = FactoryBot.create(:task, name: 'タスク名テスト2', detail: 'タスク名詳細2', expired_at: '2019-11-23 12:27:00', status: '着手中', user: user )
-      task3 = FactoryBot.create(:task, name: 'タスク名テスト3', detail: 'タスク名詳細3', expired_at: '2019-11-24 12:27:00', status: '完了', user: user )
-      task4 = FactoryBot.create(:task, name: '4個目のテスト', detail: 'タスク名詳細4', expired_at: '2019-11-21 12:27:00', status: '完了', user: user )
+      task = FactoryBot.create(:task, name: 'タスク名テスト保存', detail: 'タスク名詳細保存', expired_at: '2019-11-20', status: '未着手', user: user )
   
       visit new_session_path
       fill_in "Eメール", with: "user2@example.com"
@@ -60,19 +41,20 @@ RSpec.describe "タスク管理機能", type: :system do
       click_button "ログイン"
     end
 
-    context '必要項目を入力して、「登録する」ボタンを押した場合' do  
+    context '必要項目を入力して、「登録する」ボタンを押した場合' do
+      
       it 'データが保存されること' do
         visit new_task_path
-        fill_in 'タスク名', with: 'タスク名テスト'
-        fill_in 'タスク詳細', with: 'タスク名詳細'
+        fill_in 'タスク名', with: 'タスク名テスト保存'
+        fill_in 'タスク詳細', with: 'タスク名詳細保存'
         select '2019', from: 'task_expired_at_1i'
         select '11', from: 'task_expired_at_2i'
         select '20', from: 'task_expired_at_3i'
-        # user = FactoryBot.create(:user, name: "ユーザー", email: "user@example.com", password: "password")
-        # task = FactoryBot.create(:task, name: 'タスク名テスト', detail: 'タスク名詳細', expired_at: '2019-11-20', user_id: 1)
+        #user = FactoryBot.create(:user, name: "ユーザー", email: "user@example.com", password: "password")
+        
         click_on '登録する'
-        expect(page).to have_content 'タスク名テスト'
-        expect(page).to have_content 'タスク名詳細'
+        expect(page).to have_content 'タスク名テスト保存'
+        expect(page).to have_content 'タスク名詳細保存'
         expect(page).to have_content '2019/11/20'
       end
     end

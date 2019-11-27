@@ -1,0 +1,9 @@
+<h1>管理画面のユーザー一覧です</h1>
+<% @users.each do |user| %>
+<div>
+  <%= user.id %> : <%= user.name %>
+  <%= link_to '削除', admin_user_path(user.id), method: :delete, data: { confirm: '本当に削除していいですか？' } %>
+</div>
+<% end %>
+
+<%= link_to "ユーザーを作成", new_admin_user_path %>

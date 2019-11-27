@@ -1,4 +1,4 @@
-<h1>登録</h1>
+<h1>管理者権限でユーザーを登録</h1>
 
 <% if @user.errors.any? %>
   <div id="error_explanation">
@@ -11,7 +11,7 @@
   </div>
 <% end %>
 
-<%= form_with(model: @user, local: true) do |f| %>  
+<%= form_with(model: @user, url: admin_users_path, local: true) do |f| %>  
   <%= f.label :name %>
   <%= f.text_field :name %>
 
@@ -26,3 +26,5 @@
 
   <%= f.submit "アカウントを作成" %>
 <% end %>
+
+<%= link_to "管理画面のユーザー一覧", admin_users_path %>

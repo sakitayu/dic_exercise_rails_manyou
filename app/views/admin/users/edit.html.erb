@@ -37,9 +37,13 @@
           <%= form.text_field :password_confirmation %>
         </div>
         <div class="user_admin">
-          <%= form.label :admin, "管理者" %>
-          <%= form.select :admin, [true, false], {} %>
+          <h3>管理者アカウントへの切り替え</h3>
+          <%= form.radio_button :admin, :true %>
+          <%= form.label :admin, "オン" %>
+          <%= form.radio_button :admin, :false %>
+          <%= form.label :admin, "オフ" %>
         </div>
+        <br>
         <%= form.submit %>
         <br>
         <br>

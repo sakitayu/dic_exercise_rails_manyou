@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "ユーザー管理機能", type: :system do
   before do
+    admin_user = FactoryBot.create(:user, name: "adminユーザー", email: "admin_user@example.com", password: "adminpassword", admin: true)
     user1 = FactoryBot.create(:user, name: "ユーザー1", email: "user1@example.com", password: "password1")
     user2 = FactoryBot.create(:user, name: "ユーザー2", email: "user2@example.com", password: "password2")
     user3 = FactoryBot.create(:user, name: "ユーザー3", email: "user3@example.com", password: "password3")
@@ -11,6 +12,11 @@ RSpec.describe "ユーザー管理機能", type: :system do
     task2 = FactoryBot.create(:task, name: 'タスク名テスト2', detail: 'タスク名詳細2', expired_at: '2019-11-23 12:27:00', status: '着手中', user: user1 )
     task3 = FactoryBot.create(:task, name: 'タスク名テスト3', detail: 'タスク名詳細3', expired_at: '2019-11-24 12:27:00', status: '完了', user: user1 )
     task4 = FactoryBot.create(:task, name: 'タスク名テスト4', detail: 'タスク名詳細4', expired_at: '2019-11-21 12:27:00', status: '完了', user: user1 )
+    visit new_session_path
+    fill_in "Eメール", with: "admin_user@example.com"
+    fill_in "パスワード", with: "adminpassword"
+    click_button "ログイン"
+
   end
 
   describe 'ユーザー一覧のテスト' do
@@ -48,8 +54,8 @@ RSpec.describe "ユーザー管理機能", type: :system do
       it '該当ユーザーの内容が表示されたページに遷移すること' do
         visit admin_users_path
         all('div')[1].click_on '詳細'
-        expect(page).to have_content 'ユーザー2'
-        expect(page).to have_content 'user2@example.com'
+        expect(page).to have_content 'ユーザー1'
+        expect(page).to have_content 'user1@example.com'
         expect(page).to have_content 'タスク一覧'
       end
     end
@@ -76,7 +82,7 @@ RSpec.describe "ユーザー管理機能", type: :system do
         visit admin_users_path
         all('div')[1].click_on '削除'
         page.driver.browser.switch_to.alert.accept
-        expect(page).not_to have_content 'ユーザー2'
+        expect(page).not_to have_content 'ユーザー1'
       end
     end
   end

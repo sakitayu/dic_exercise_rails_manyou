@@ -27,6 +27,7 @@ class Admin::UsersController < ApplicationController
     #else
       #redirect_to user_path(current_user.id)
     #end
+      @tasks = Task.where(user_id: @user.id)
   end
 
   def edit

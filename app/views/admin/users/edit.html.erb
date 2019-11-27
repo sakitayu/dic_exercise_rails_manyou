@@ -26,15 +26,19 @@
           <%= form.text_field :name %>
         </div>
         <div class="user_email">
-          <%= form.label :email; %>
+          <%= form.label :email %>
           <%= form.text_field :email %>
         </div><div class="user_password">
-          <%= form.label :password; %>
+          <%= form.label :password %>
           <%= form.text_field :password %>
         </div>
         <div class="user_password_confirmation">
-          <%= form.label :password_confirmation; %>
+          <%= form.label :password_confirmation %>
           <%= form.text_field :password_confirmation %>
+        </div>
+        <div class="user_admin">
+          <%= form.label :admin, "管理者" %>
+          <%= form.select :admin, [true, false], {} %>
         </div>
         <%= form.submit %>
         <br>

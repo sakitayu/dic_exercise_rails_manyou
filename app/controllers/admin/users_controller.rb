@@ -1,15 +1,19 @@
 class Admin::UsersController < ApplicationController
   def index
-    @users = User.all
+    if current_user.admin == true
+      @users = User.all.order(id: :asc)
+    else
+      redirect_to errors_users_path
+    end
   end
 
 
   def new
-    #if logged_in?
-      #redirect_to user_path(current_user.id)
-    #else
+    if current_user.admin == true
       @user = User.new
-    #end
+    else
+      redirect_to errors_users_path
+    end
   end
 
   def create
@@ -22,16 +26,20 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
-    #if params[:id] == "#{current_user.id}"
+    if current_user.admin == true
       @user = User.find(params[:id])
-    #else
-      #redirect_to user_path(current_user.id)
-    #end
       @tasks = Task.where(user_id: @user.id)
+    else
+      redirect_to errors_users_path
+    end
   end
 
   def edit
-    @user = User.find(params[:id])
+    if current_user.admin == true
+      @user = User.find(params[:id])
+    else
+      redirect_to errors_users_path
+    end
   end
 
   def update
@@ -52,7 +60,7 @@ class Admin::UsersController < ApplicationController
   private
   
   def user_params
-    params.require(:user).permit(:name, :email, :password,
+    params.require(:user).permit(:name, :email, :password, :admin,
                                  :password_confirmation)
   end
 end

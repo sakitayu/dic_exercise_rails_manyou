@@ -29,6 +29,19 @@ class Admin::UsersController < ApplicationController
     #end
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to admin_user_path(@user.id), notice: "ユーザーを編集しました！"
+    else
+      render :edit
+    end
+  end
+
   def destroy
     @user = User.find(params[:id])
     @user.destroy

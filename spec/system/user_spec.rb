@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "ユーザー管理機能", type: :system do
   before do
     admin_user = FactoryBot.create(:user, name: "adminユーザー", email: "admin_user@example.com", password: "adminpassword", admin: true)
-    user1 = FactoryBot.create(:user, name: "ユーザー1", email: "user1@example.com", password: "password1")
+    user1 = FactoryBot.create(:user, name: "ユーザー1", email: "user1@example.com", password: "password1", admin: true)
     user2 = FactoryBot.create(:user, name: "ユーザー2", email: "user2@example.com", password: "password2")
     user3 = FactoryBot.create(:user, name: "ユーザー3", email: "user3@example.com", password: "password3")
     user4 = FactoryBot.create(:user, name: "ユーザー4", email: "user4@example.com", password: "password4")
@@ -80,9 +80,9 @@ RSpec.describe "ユーザー管理機能", type: :system do
     context 'ユーザーを削除した場合' do
       it 'ユーザー一覧画面から削除したユーザーが消えていること' do
         visit admin_users_path
-        all('div')[1].click_on '削除'
+        all('div')[2].click_on '削除'
         page.driver.browser.switch_to.alert.accept
-        expect(page).not_to have_content 'ユーザー1'
+        expect(page).not_to have_content 'ユーザー2'
       end
     end
   end

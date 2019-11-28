@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  before_destroy :ensure_admin
   before_update :ensure_admin
 
   validates :name,  presence: true, length: { maximum: 30 }

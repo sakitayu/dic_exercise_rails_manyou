@@ -1,11 +1,12 @@
 <h1>管理画面</h1>
+<p> <%= current_user.name %>が管理者としてログインしています。</p>
 <%= link_to "ユーザーを作成", new_admin_user_path %>
 <h2>ユーザー一覧</h2>
 <% @users.each do |user| %>
 <div>
-  <%= user.id %> : <%= user.name %>
-  <span>タスク数[<%= number_of_tasks(user) %>]</span>
-  <%= link_to '詳細', admin_user_path(user.id) %> 
+  <%= user.id %> : <%= user.name %> | 
+  <span>タスク数 <%= number_of_tasks(user) %> </span> | 
+  <%= link_to '詳細', admin_user_path(user.id) %>  | 
   <%= link_to '編集', edit_admin_user_path(user.id) %> | 
   <%= link_to '削除', admin_user_path(user.id), method: :delete, data: { confirm: '本当に削除していいですか？' } %>
   <%= "★管理者" if user.admin == true %>

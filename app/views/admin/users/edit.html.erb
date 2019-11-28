@@ -37,11 +37,11 @@
           <%= form.text_field :password_confirmation %>
         </div>
         <div class="user_admin">
-          <h3>管理者アカウントへの切り替え</h3>
-          <%= form.radio_button :admin, :true %>
-          <%= form.label :admin, "オン" %>
-          <%= form.radio_button :admin, :false %>
-          <%= form.label :admin, "オフ" %>
+          <h3><%= "管理者アカウントへの切り替え" unless current_user.id == @user.id %></h3>
+          <%= form.radio_button :admin, :true unless current_user.id == @user.id %>
+          <%= form.label :admin, "オン" unless current_user.id == @user.id %>
+          <%= form.radio_button :admin, :false unless current_user.id == @user.id %>
+          <%= form.label :admin, "オフ" unless current_user.id == @user.id %>
         </div>
         <br>
         <%= form.submit %>

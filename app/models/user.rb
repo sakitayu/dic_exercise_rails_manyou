@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  before_update :ensure_admin
+  before_destroy :ensure_admin
 
   validates :name,  presence: true, length: { maximum: 30 }
   validates :email, presence: true, length: { maximum: 255 }, uniqueness: true,
@@ -9,7 +9,11 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }
   has_many :tasks, dependent: :destroy
   
+  private
+
   def ensure_admin
-    self.admin = true if User.where(admin: true).count <= 1
+    if User.where(admin: true).count <= 1
+      throw(:abort)
+    end
   end
 end

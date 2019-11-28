@@ -3,5 +3,6 @@ FactoryBot.define do
     
     name { 'test_name' }
     detail { 'test_detail' }  
+    user
   end
 end

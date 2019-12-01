@@ -13,6 +13,7 @@ User.create!(
   admin: true,
 )
 
+# i18nの切り替えが面倒なので自作のシードデータを上記で少し生成します
 # 10.times do |n|
 #   name = Faker::Games::Pokemon.name
 #   email = Faker::Internet.email

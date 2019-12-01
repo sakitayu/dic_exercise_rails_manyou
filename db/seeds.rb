@@ -14,5 +14,6 @@
                email: email,
                password: password,
                password_confirmation: password,
+               admin: admin,
                )
 end

@@ -171,7 +171,7 @@ RSpec.describe "タスク管理機能", type: :system do
     end
 
     context 'ステータスを選択して、「更新する」ボタンを押した場合' do
-      it 'ステータスが更新されているいること' do
+      it 'ステータスが更新されていること' do
         visit tasks_path
         all('tbody td')[7].click_on '編集'
         select '完了', from: 'task_status'
@@ -198,7 +198,7 @@ RSpec.describe "タスク管理機能", type: :system do
     end
 
     context 'タイトルを記入して、「検索」ボタンを押した場合' do
-      it '検索結果が正しく表示されているいること' do
+      it '検索結果が正しく表示されていること' do
         visit tasks_path
         fill_in 'タイトル', with: 'タスク'
         click_on '検索'
@@ -224,7 +224,7 @@ RSpec.describe "タスク管理機能", type: :system do
     end
 
     context 'ステータスを完了にして、「検索」ボタンを押した場合' do
-      it '検索結果が正しく表示されているいること' do
+      it '検索結果が正しく表示されていること' do
         visit tasks_path
         select '完了', from: 'status'
         click_on '検索'
@@ -249,7 +249,7 @@ RSpec.describe "タスク管理機能", type: :system do
     end
 
     context 'ステータスを完了にして、「検索」ボタンを押した場合' do
-      it '検索結果が正しく表示されているいること' do
+      it '検索結果が正しく表示されていること' do
         visit tasks_path
         select '完了', from: 'status'
         fill_in 'タイトル', with: 'タスク'
@@ -276,7 +276,7 @@ RSpec.describe "タスク管理機能", type: :system do
     end
 
     context 'redラベルを選択して、「ラベル」ボタンを押した場合' do
-      it '一覧でredラベルのタスクのみが正しく表示されているいること' do
+      it '一覧でredラベルのタスクのみが正しく表示されていること' do
         visit tasks_path
         select 'red', from: 'label_id'
         click_on 'ラベル'
@@ -285,4 +285,20 @@ RSpec.describe "タスク管理機能", type: :system do
       end
     end
   end
+
+  describe "エラーページがちゃんと表示されているかのテスト" do
+    before do
+      user = FactoryBot.create(:user, name: "ユーザー2", email: "user2@example.com", password: "password")
+      visit new_session_path
+      fill_in "Eメール", with: "user2@example.com"
+      fill_in "パスワード", with: "password"
+      click_button "ログイン"
+    end
+
+    context '存在しないページがリクエストされた場合' do
+      it '404ページが表示されていること' do
+        visit "/abcd"
+        expect(page).to have_content '404'
+      end
+    end
 end

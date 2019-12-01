@@ -23,7 +23,7 @@ body{
 }
 
 .main_box {
-  width: 900px;
+  width: 920px;
   margin:90px auto;
 }
 
@@ -50,6 +50,13 @@ body{
   font-weight:bold;
   color: #59A28A;
   padding:8px 0 0 15px;
+}
+
+.label_search {
+  float:right;
+  margin-top:5px;
+  margin-right:20px;
+
 }
 
 .task_search {
@@ -79,6 +86,11 @@ body{
   border-top: 1px solid #8FD1DF;
 }
 
+.tasks_tr p {
+  font-weight: bold;
+  padding-top: 5px;
+}
+
 .tasks_tr:hover{
   background-color: #D2E7DF;
 
@@ -89,11 +101,11 @@ body{
 }
 
 .task_detail_th {
-  width:220px;
+  width:280px;
 }
 
 .task_expired_th {
-  width:100px;
+  width:80px;
 }
 
 .task_status_th {
@@ -102,6 +114,10 @@ body{
 
 .task_priority_th {
   width:100px;
+}
+
+.task_label_th {
+  width:180px
 }
 
 .show_content {

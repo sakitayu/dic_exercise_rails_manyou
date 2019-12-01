@@ -33,7 +33,9 @@ RSpec.describe "タスク管理機能", type: :system do
   describe "タスク作成のテスト" do
     before do
       user = FactoryBot.create(:user, name: "ユーザー2", email: "user2@example.com", password: "password")
-      task = FactoryBot.create(:task, name: 'タスク名テスト保存', detail: 'タスク名詳細保存', expired_at: '2019-11-20', status: '未着手', user: user )
+      task = FactoryBot.create(:task, name: 'タスク名テスト保存', detail: 'タスク名詳細保存', expired_at: '2019-11-20', status: '未着手', user: user)
+      label = FactoryBot.create(:label, name: "red")
+      labelling = FactoryBot.create(:labelling, task_id: task.id, label_id: label.id, task: task, label: label )
   
       visit new_session_path
       fill_in "Eメール", with: "user2@example.com"
@@ -50,12 +52,15 @@ RSpec.describe "タスク管理機能", type: :system do
         select '2019', from: 'task_expired_at_1i'
         select '11', from: 'task_expired_at_2i'
         select '20', from: 'task_expired_at_3i'
-        #user = FactoryBot.create(:user, name: "ユーザー", email: "user@example.com", password: "password")
+        select '中', from: 'task_priority'
+        page.check 'red'
         
         click_on '登録する'
         expect(page).to have_content 'タスク名テスト保存'
         expect(page).to have_content 'タスク名詳細保存'
         expect(page).to have_content '2019/11/20'
+        expect(page).to have_content '中'
+        expect(page).to have_content 'red'
       end
     end
   end
@@ -77,7 +82,7 @@ RSpec.describe "タスク管理機能", type: :system do
     context '任意のタスク詳細に遷移した場合' do
       it '該当タスクの内容が表示されたページに遷移すること' do
         visit tasks_path
-        all('tbody td')[5].click_on '詳細'
+        all('tbody td')[6].click_on '詳細'
         expect(page).to have_content 'タスク詳細'
         expect(page).to have_content '4個目のテスト'
         expect(page).to have_content 'タスク名詳細4'
@@ -102,22 +107,22 @@ RSpec.describe "タスク管理機能", type: :system do
     context 'indexに遷移した場合' do
       it '該当タスクの内容が作成日時の降順に並んでいること' do
         visit tasks_path
-        all('tbody td')[5].click_on '詳細'
+        all('tbody td')[6].click_on '詳細'
         expect(page).to have_content '4個目のテスト'
         expect(page).to have_content 'タスク名詳細4'
 
         visit tasks_path
-        all('tbody td')[13].click_on '詳細'
+        all('tbody td')[15].click_on '詳細'
         expect(page).to have_content 'タスク名テスト3'
         expect(page).to have_content 'タスク名詳細3'
 
         visit tasks_path
-        all('tbody td')[21].click_on '詳細'
+        all('tbody td')[24].click_on '詳細'
         expect(page).to have_content 'タスク名テスト2'
         expect(page).to have_content 'タスク名詳細2'
 
         visit tasks_path
-        all('tbody td')[29].click_on '詳細'
+        all('tbody td')[33].click_on '詳細'
         expect(page).to have_content 'タスク名テスト1'
         expect(page).to have_content 'タスク名詳細1'
       end
@@ -144,9 +149,9 @@ RSpec.describe "タスク管理機能", type: :system do
         all('tbody th')[2].click_on '終了期限'
         sleep 1
         expect(all('tbody td')[0]).to have_content 'タスク名テスト3'
-        expect(all('tbody td')[8]).to have_content 'タスク名テスト2'
-        expect(all('tbody td')[16]).to have_content 'タスク名テスト1'
-        expect(all('tbody td')[24]).to have_content '4個目のテスト'
+        expect(all('tbody td')[9]).to have_content 'タスク名テスト2'
+        expect(all('tbody td')[18]).to have_content 'タスク名テスト1'
+        expect(all('tbody td')[27]).to have_content '4個目のテスト'
       end
     end
   end
@@ -166,9 +171,9 @@ RSpec.describe "タスク管理機能", type: :system do
     end
 
     context 'ステータスを選択して、「更新する」ボタンを押した場合' do
-      it 'ステータスが更新されているいること' do
+      it 'ステータスが更新されていること' do
         visit tasks_path
-        all('tbody td')[6].click_on '編集'
+        all('tbody td')[7].click_on '編集'
         select '完了', from: 'task_status'
         click_on '更新する'
         expect(page).to have_content '完了'
@@ -193,13 +198,13 @@ RSpec.describe "タスク管理機能", type: :system do
     end
 
     context 'タイトルを記入して、「検索」ボタンを押した場合' do
-      it '検索結果が正しく表示されているいること' do
+      it '検索結果が正しく表示されていること' do
         visit tasks_path
         fill_in 'タイトル', with: 'タスク'
         click_on '検索'
         expect(all('tbody td')[0]).to have_content 'タスク名テスト1'
-        expect(all('tbody td')[8]).to have_content 'タスク名テスト2'
-        expect(all('tbody td')[16]).to have_content 'タスク名テスト3'
+        expect(all('tbody td')[9]).to have_content 'タスク名テスト2'
+        expect(all('tbody td')[18]).to have_content 'タスク名テスト3'
       end
     end
   end
@@ -219,12 +224,12 @@ RSpec.describe "タスク管理機能", type: :system do
     end
 
     context 'ステータスを完了にして、「検索」ボタンを押した場合' do
-      it '検索結果が正しく表示されているいること' do
+      it '検索結果が正しく表示されていること' do
         visit tasks_path
         select '完了', from: 'status'
         click_on '検索'
         expect(all('tbody td')[0]).to have_content 'タスク名テスト3'
-        expect(all('tbody td')[8]).to have_content '4個目のテスト'
+        expect(all('tbody td')[9]).to have_content '4個目のテスト'
       end
     end
   end
@@ -244,7 +249,7 @@ RSpec.describe "タスク管理機能", type: :system do
     end
 
     context 'ステータスを完了にして、「検索」ボタンを押した場合' do
-      it '検索結果が正しく表示されているいること' do
+      it '検索結果が正しく表示されていること' do
         visit tasks_path
         select '完了', from: 'status'
         fill_in 'タイトル', with: 'タスク'
@@ -253,4 +258,47 @@ RSpec.describe "タスク管理機能", type: :system do
       end
     end
   end
+
+  describe "インデックスの検索ボタンで検索結果が反映されているかのテスト4" do
+    before do
+      user = FactoryBot.create(:user, name: "ユーザー2", email: "user2@example.com", password: "password")
+      task1 = FactoryBot.create(:task, name: 'タスク名テスト1', detail: 'タスク名詳細1', expired_at: '2019-11-22 12:27:00', status: '未着手', user: user)
+      task2 = FactoryBot.create(:task, name: 'タスク名テスト2', detail: 'タスク名詳細2', expired_at: '2019-11-23 12:27:00', status: '着手中', user: user )
+      task3 = FactoryBot.create(:task, name: 'タスク名テスト3', detail: 'タスク名詳細3', expired_at: '2019-11-24 12:27:00', status: '完了', user: user )
+      task4 = FactoryBot.create(:task, name: '4個目のテスト', detail: 'タスク名詳細4', expired_at: '2019-11-21 12:27:00', status: '完了', user: user )
+      label = FactoryBot.create(:label, name: "red")
+      labelling = FactoryBot.create(:labelling, task_id: task1.id, label_id: label.id, task: task1, label: label )
+  
+      visit new_session_path
+      fill_in "Eメール", with: "user2@example.com"
+      fill_in "パスワード", with: "password"
+      click_button "ログイン"
+    end
+
+    context 'redラベルを選択して、「ラベル」ボタンを押した場合' do
+      it '一覧でredラベルのタスクのみが正しく表示されていること' do
+        visit tasks_path
+        select 'red', from: 'label_id'
+        click_on 'ラベル'
+        expect(all('tbody td')[0]).to have_content 'タスク名テスト1'
+        expect(page).to have_content 'red'
+      end
+    end
+  end
+
+  describe "エラーページがちゃんと表示されているかのテスト" do
+    before do
+      user = FactoryBot.create(:user, name: "ユーザー2", email: "user2@example.com", password: "password")
+      visit new_session_path
+      fill_in "Eメール", with: "user2@example.com"
+      fill_in "パスワード", with: "password"
+      click_button "ログイン"
+    end
+
+    context '存在しないページがリクエストされた場合' do
+      it '404ページが表示されていること' do
+        visit "/abcd"
+        expect(page).to have_content '404'
+      end
+    end
 end

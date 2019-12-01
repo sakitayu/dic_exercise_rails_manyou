@@ -5,8 +5,13 @@
     <div class="title_box">
       <h1>タスク一覧</h1>
       <span class="notice_flash"><%= notice %></span>
+      <%= form_with url: tasks_path, method: :get, local: true do |form| %>
+        <div class="label_search">
+          <%= form.select("label_id", Label.pluck(:name, :id), { include_blank: true }) %>
+          <%= form.submit 'ラベル', name: nil %>
+        </div>
+      <% end %>
       <%= form_with(model: @task, method: :get, local: true, url: tasks_path) do |form| %>
-      
         <div class="task_search">
           <span>絞り込み検索</span>
           <%= form.label :name, "タイトル" %>
@@ -15,7 +20,6 @@
           <%= form.hidden_field :search, value: 'true' %>
           <%= form.submit "検索" %>
         </div>
-      
       <% end %>
     </div>
 
@@ -31,15 +35,21 @@
           <th class="task_expired_th"><%= link_to "終了期限", tasks_path(sort_expired: "true") %></th>
           <th class="task_status_th">ステータス</th>
           <th class="task_priority_th"><%= link_to "優先順位", tasks_path(sort_priority: "true") %></th>
+          <th class="task_label_th">ラベル</th>
         </tr>
       
       <% @tasks.each do |task| %>
         <tr class="tasks_tr">
-          <td><%= task.name.slice(0, 12) %></td>
+          <td><p><%= task.name.slice(0, 12) %></p></td>
           <td><%= task.detail.slice(0, 14) %></td>
           <td><%= task.expired_at.try(:strftime,"%Y/%m/%d") %></td>
           <td><%= task.status %></td>
           <td><%= task.priority %></td>
+          <td>
+            <% task.labels.each do |label| %>
+              <%= label.name %>
+            <% end %>
+          </td>
           <td><%= link_to "詳細", task_path(task.id), id: "show_#{task.id}", class: 'btn btn-default btn-block btn-sm' %></td>
           <td><%= link_to "編集", edit_task_path(task.id), id: "edit_#{task.id}", class: 'btn btn-default btn-block btn-sm' %></td>
           <td>

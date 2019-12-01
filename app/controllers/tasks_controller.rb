@@ -5,6 +5,7 @@ class TasksController < ApplicationController
   def index
     if logged_in?
       @tasks = Task.where(user_id: current_user.id)
+      @tasks = @tasks.joins(:labels).where(labels: { id: params[:label_id] }) if params[:label_id].present?
       if params[:name].blank? && params[:status].blank?
         @tasks = @tasks.page(params[:page]).per(PER)
         if params[:sort_expired].blank? && params[:sort_priority].blank?
@@ -79,7 +80,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :detail, :expired_at, :status, :search, :priority, :user_id)
+    params.require(:task).permit(:name, :detail, :expired_at, :status, :search, :priority, :user_id, { label_ids: [] })
   end
 
   def set_task

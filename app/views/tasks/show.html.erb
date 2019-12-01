@@ -12,6 +12,12 @@
       <div class="show_content"><span class="show_contents_title">終了期限: </span><%= @task.expired_at.try(:strftime,"%Y/%m/%d") %></div>
       <div class="show_content"><span class="show_contents_title">ステータス: </span><%= @task.status %></div>
       <div class="show_content"><span class="show_contents_title">優先順位: </span><%= @task.priority %></div>
+      <div class="show_content">
+        <span class="show_contents_title">ラベル: </span>
+        <% @task.labels.each do |label| %>
+          <%= label.name %>
+        <% end %>
+      </div>
 
 
       <%= link_to '一覧画面に戻る', tasks_path %>

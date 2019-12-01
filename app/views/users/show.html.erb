@@ -2,5 +2,6 @@
 <p><%= "【管理者アカウントです】" if @user.admin == true %></p>
 <p>メールアドレス: <%= @user.email %></p>
 
-<%= link_to 'タスク一覧画面に戻る', tasks_path %>
-<%= link_to "管理者画面", admin_users_path if @user.admin == true %>
+<div><%= link_to 'タスク一覧画面に戻る', tasks_path %></div>
+<br>
+<div><%= link_to "管理者画面", admin_users_path if @user.admin == true %></div>

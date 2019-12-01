@@ -88,6 +88,7 @@ body{
 
 .tasks_tr p {
   font-weight: bold;
+  padding-top: 5px;
 }
 
 .tasks_tr:hover{

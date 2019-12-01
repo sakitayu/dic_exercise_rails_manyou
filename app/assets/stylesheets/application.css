@@ -100,11 +100,11 @@ body{
 }
 
 .task_detail_th {
-  width:220px;
+  width:280px;
 }
 
 .task_expired_th {
-  width:100px;
+  width:80px;
 }
 
 .task_status_th {

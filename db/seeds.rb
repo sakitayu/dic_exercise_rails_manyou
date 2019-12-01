@@ -6,12 +6,20 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create!(
-  name: 'admin_master',
-  email: 'admin@example.com',
-  password: 'adminadmin',
-  admin: true,
-)
+# User.create!(
+#   name: 'admin_master',
+#   email: 'admin@example.com',
+#   password: 'adminadmin',
+#   admin: true,
+# )
+
+labels = [
+  { name: 'red' },
+  { name: 'green' },
+  { name: 'blue' },
+  { name: 'yellow' }
+]
+Label.create! labels
 
 # i18nの切り替えが面倒なので自作のシードデータを上記で少し生成します
 # 10.times do |n|
